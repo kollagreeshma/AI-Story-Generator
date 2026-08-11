@@ -1,26 +1,15 @@
 import streamlit as st
-import os
-import streamlit as st
-from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 from langchain_core.prompts import PromptTemplate
 
-
 # =====================================================
-# LOAD ENVIRONMENT VARIABLES
-# =====================================================
-
-load_dotenv()
-
-groq_api_key = os.getenv("GROQ_API_KEY")
-
-
-# =====================================================
-# CHECK API KEY
+# LOAD GROQ API KEY
 # =====================================================
 
-if not groq_api_key:
-    st.error("❌ GROQ_API_KEY not found. Please check your .env file.")
+try:
+    groq_api_key = st.secrets["GROQ_API_KEY"]
+except Exception:
+    st.error("❌ GROQ_API_KEY not found. Please add it in Streamlit Secrets.")
     st.stop()
 
 
